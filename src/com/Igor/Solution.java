@@ -18,7 +18,6 @@ public class Solution {
                 HalfBill+=bill.get(i);
         }
         HalfBill/=2;
-        //int refund=b-HalfBill;
         if(b-HalfBill==0)
             System.out.println("Bon Appetit");
         else
