@@ -1,5 +1,3 @@
-package com.Igor;
-
 import java.io.*;
 import java.math.*;
 import java.security.*;
@@ -10,42 +8,50 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the bonAppetit function below.
-    static void bonAppetit(List<Integer> bill, int k, int b) {
-        int HalfBill=0;
-        for(int i=0;i<bill.size();i++){
-            if(i!=k)
-                HalfBill+=bill.get(i);
+    // Complete the sockMerchant function below.
+    static int sockMerchant(int n, int[] ar) {
+        //int[] colorSocks=new int[100];
+        ArrayList colorSocks=new ArrayList();
+        for (int i=0; i<ar.length;i++){
+            if(colorSocks.size()!=0){
+                for(int color=0;color<colorSocks.size();color++){
+                    if(ar[i]==(int)colorSocks.get(color))
+
+                }
+
+
+
+            }
+            else;
         }
-        HalfBill/=2;
-        if(b-HalfBill==0)
-            System.out.println("Bon Appetit");
-        else
-            System.out.println(b-HalfBill);
+
     }
 
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String[] nk = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int n = Integer.parseInt(nk[0]);
+        int[] ar = new int[n];
 
-        int k = Integer.parseInt(nk[1]);
-
-        String[] billItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-        List<Integer> bill = new ArrayList<>();
+        String[] arItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
         for (int i = 0; i < n; i++) {
-            int billItem = Integer.parseInt(billItems[i]);
-            bill.add(billItem);
+            int arItem = Integer.parseInt(arItems[i]);
+            ar[i] = arItem;
         }
 
-        int b = Integer.parseInt(bufferedReader.readLine().trim());
+        int result = sockMerchant(n, ar);
 
-        bonAppetit(bill, k, b);
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
 
-        bufferedReader.close();
+        bufferedWriter.close();
+
+        scanner.close();
     }
 }
