@@ -10,18 +10,18 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the sockMerchant function below.
-    static int sockMerchant(int n, int[] ar) {
-        Map <Integer,Integer> socksColorMap =new HashMap<Integer,Integer>();
-        int pairs;
-        pairs=0;
-        for (int i=0;i<n;i++){
-            Integer socks = socksColorMap.get(ar[i]);
-            socksColorMap.put(ar[i], socks==null ? 1 : socks+1);
-        }
-        for (Integer i : socksColorMap.keySet())
-            pairs +=socksColorMap.get(i)/2;
-    return pairs;
+    /*
+     * Complete the pageCount function below.
+     */
+    static int pageCount(int n, int p) {
+        int twinPages;
+        twinPages=n-1;
+        twinPages=twinPages/2;
+        if((p==1)||(p==n)||((p%2==0)&&(p+1==n)))
+            return 0;
+        else
+            p=p/2;
+        return ((twinPages-p)<(p)) ?  twinPages-p : p;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -32,17 +32,10 @@ public class Solution {
         int n = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int[] ar = new int[n];
-
-        String[] arItems = scanner.nextLine().split(" ");
+        int p = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int i = 0; i < n; i++) {
-            int arItem = Integer.parseInt(arItems[i]);
-            ar[i] = arItem;
-        }
-
-        int result = sockMerchant(n, ar);
+        int result = pageCount(n, p);
 
         //bufferedWriter.write(String.valueOf(result));
         //bufferedWriter.newLine();
