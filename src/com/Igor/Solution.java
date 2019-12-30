@@ -1,3 +1,5 @@
+package com.Igor;
+
 import java.io.*;
 import java.math.*;
 import java.security.*;
@@ -10,27 +12,22 @@ public class Solution {
 
     // Complete the sockMerchant function below.
     static int sockMerchant(int n, int[] ar) {
-        //int[] colorSocks=new int[100];
-        ArrayList colorSocks=new ArrayList();
-        for (int i=0; i<ar.length;i++){
-            if(colorSocks.size()!=0){
-                for(int color=0;color<colorSocks.size();color++){
-                    if(ar[i]==(int)colorSocks.get(color))
-
-                }
-
-
-
-            }
-            else;
+        Map <Integer,Integer> socksColorMap =new HashMap<Integer,Integer>();
+        int pairs;
+        pairs=0;
+        for (int i=0;i<n;i++){
+            Integer socks = socksColorMap.get(ar[i]);
+            socksColorMap.put(ar[i], socks==null ? 1 : socks+1);
         }
-
+        for (Integer i : socksColorMap.keySet())
+            pairs +=socksColorMap.get(i)/2;
+    return pairs;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         int n = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
@@ -47,10 +44,11 @@ public class Solution {
 
         int result = sockMerchant(n, ar);
 
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
+        //bufferedWriter.write(String.valueOf(result));
+        //bufferedWriter.newLine();
 
-        bufferedWriter.close();
+        //bufferedWriter.close();
+        System.out.println(result);
 
         scanner.close();
     }
