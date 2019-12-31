@@ -15,7 +15,10 @@ public class Solution {
      */
     static int pageCount(int n, int p) {
         int twinPages;
-        twinPages=n-1;
+        if (n%2!=0)
+            twinPages=n-1;
+        else
+            twinPages=n;
         twinPages=twinPages/2;
         if((p==1)||(p==n)||((p%2==0)&&(p+1==n)))
             return 0;
