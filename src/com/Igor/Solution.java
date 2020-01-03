@@ -2,29 +2,29 @@ package com.Igor;
 
 import java.io.*;
 import java.math.*;
-import java.security.*;
 import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class Solution {
 
     /*
-     * Complete the pageCount function below.
+     * Complete the getMoneySpent function below.
      */
-    static int pageCount(int n, int p) {
-        int twinPages;
-        if (n%2!=0)
-            twinPages=n-1;
-        else
-            twinPages=n;
-        twinPages=twinPages/2;
-        if((p==1)||(p==n)||((p%2==0)&&(p+1==n)))
-            return 0;
-        else
-            p=p/2;
-        return ((twinPages-p)<(p)) ?  twinPages-p : p;
+    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
+        /*
+         * Write your code here.
+         */
+        int sum=-1;
+        Arrays.sort(keyboards);
+        Arrays.sort(drives);
+        for (int k=0; k<keyboards.length;k++){
+            for(int d=0; d<drives.length; d++){
+                if(keyboards[k]+drives[d]>b) break;
+                if (keyboards[k]+drives[d]>sum) sum=keyboards[k]+drives[d];
+            }
+        }
+        return sum;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -32,20 +32,46 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        String[] bnm = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
 
-        int p = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        int b = Integer.parseInt(bnm[0]);
 
-        int result = pageCount(n, p);
+        int n = Integer.parseInt(bnm[1]);
 
-        //bufferedWriter.write(String.valueOf(result));
+        int m = Integer.parseInt(bnm[2]);
+
+        int[] keyboards = new int[n];
+
+        String[] keyboardsItems = scanner.nextLine().split(" ");
+        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        for (int keyboardsItr = 0; keyboardsItr < n; keyboardsItr++) {
+            int keyboardsItem = Integer.parseInt(keyboardsItems[keyboardsItr]);
+            keyboards[keyboardsItr] = keyboardsItem;
+        }
+
+        int[] drives = new int[m];
+
+        String[] drivesItems = scanner.nextLine().split(" ");
+        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        for (int drivesItr = 0; drivesItr < m; drivesItr++) {
+            int drivesItem = Integer.parseInt(drivesItems[drivesItr]);
+            drives[drivesItr] = drivesItem;
+        }
+
+        /*
+         * The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
+         */
+
+        int moneySpent = getMoneySpent(keyboards, drives, b);
+
+        //bufferedWriter.write(String.valueOf(moneySpent));
         //bufferedWriter.newLine();
 
         //bufferedWriter.close();
-        System.out.println(result);
-
+        System.out.println(moneySpent);
         scanner.close();
     }
 }
