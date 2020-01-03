@@ -8,23 +8,21 @@ import java.util.regex.*;
 
 public class Solution {
 
-    /*
-     * Complete the getMoneySpent function below.
-     */
-    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
-        /*
-         * Write your code here.
-         */
-        int sum=-1;
-        Arrays.sort(keyboards);
-        Arrays.sort(drives);
-        for (int k=0; k<keyboards.length;k++){
-            for(int d=0; d<drives.length; d++){
-                if(keyboards[k]+drives[d]>b) break;
-                if (keyboards[k]+drives[d]>sum) sum=keyboards[k]+drives[d];
-            }
+    // Complete the arrayManipulation function below.
+    static long arrayManipulation(int n, int[][] queries) {
+        long N[]=new long[n];
+        long sum=0;
+        long max=0;
+        for(int k=0;k<queries.length;k++){
+            N[queries[k][0]-1]+=queries[k][2];
+            if(queries[k][1]<n)
+                N[queries[k][1]]-=queries[k][2];
         }
-        return sum;
+        for (int i=0; i<n;i++){
+            sum+=N[i];
+            if (max<sum) max=sum;
+        }
+        return max;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -32,46 +30,32 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String[] bnm = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+        String[] nm = scanner.nextLine().split(" ");
 
-        int b = Integer.parseInt(bnm[0]);
+        int n = Integer.parseInt(nm[0]);
 
-        int n = Integer.parseInt(bnm[1]);
+        int m = Integer.parseInt(nm[1]);
 
-        int m = Integer.parseInt(bnm[2]);
+        int[][] queries = new int[m][3];
 
-        int[] keyboards = new int[n];
+        for (int i = 0; i < m; i++) {
+            String[] queriesRowItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        String[] keyboardsItems = scanner.nextLine().split(" ");
-        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
-
-        for (int keyboardsItr = 0; keyboardsItr < n; keyboardsItr++) {
-            int keyboardsItem = Integer.parseInt(keyboardsItems[keyboardsItr]);
-            keyboards[keyboardsItr] = keyboardsItem;
+            for (int j = 0; j < 3; j++) {
+                int queriesItem = Integer.parseInt(queriesRowItems[j]);
+                queries[i][j] = queriesItem;
+            }
         }
 
-        int[] drives = new int[m];
+        long result = arrayManipulation(n, queries);
 
-        String[] drivesItems = scanner.nextLine().split(" ");
-        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
-
-        for (int drivesItr = 0; drivesItr < m; drivesItr++) {
-            int drivesItem = Integer.parseInt(drivesItems[drivesItr]);
-            drives[drivesItr] = drivesItem;
-        }
-
-        /*
-         * The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
-         */
-
-        int moneySpent = getMoneySpent(keyboards, drives, b);
-
-        //bufferedWriter.write(String.valueOf(moneySpent));
+        //bufferedWriter.write(String.valueOf(result));
         //bufferedWriter.newLine();
 
         //bufferedWriter.close();
-        System.out.println(moneySpent);
+        System.out.println(result);
+
         scanner.close();
     }
 }
