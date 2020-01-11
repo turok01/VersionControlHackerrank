@@ -1,57 +1,73 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
+package com.Igor;
+
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.*;
 
-public class Solution {
+class Node {
+    Node left;
+    Node right;
+    int data;
 
-    // Complete the sockMerchant function below.
-    static int sockMerchant(int n, int[] ar) {
-        //int[] colorSocks=new int[100];
-        ArrayList colorSocks=new ArrayList();
-        for (int i=0; i<ar.length;i++){
-            if(colorSocks.size()!=0){
-                for(int color=0;color<colorSocks.size();color++){
-                    if(ar[i]==(int)colorSocks.get(color))
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
 
-                }
+class Solution {
 
+    public static void preOrder( Node root ) {
 
+        if( root == null)
+            return;
 
-            }
-            else;
-        }
+        System.out.print(root.data + " ");
+        preOrder(root.left);
+        preOrder(root.right);
 
     }
 
-    private static final Scanner scanner = new Scanner(System.in);
+ /* Node is defined as :
+ class Node
+    int data;
+    Node left;
+    Node right;
 
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+    */
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        int[] ar = new int[n];
-
-        String[] arItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-        for (int i = 0; i < n; i++) {
-            int arItem = Integer.parseInt(arItems[i]);
-            ar[i] = arItem;
+    public static Node insert(Node root,int data) {
+        if(root==null){
+            Node node = new Node(data);
+            root = node;
         }
 
-        int result = sockMerchant(n, ar);
+        if (root.data < data ){
+            if(root.left!=null)
+                root.left=insert(root.left,data);
+            //else
+              //  return new Node(data);
+        }
+        if(root.data>data){
+            if (root.right!=null)
+                root.right=insert(root.right,data);
+            //else{
+            //    root.right=
+            //   return new Node(data);
+            //}
+        }
+        return root;
+    }
 
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-
-        scanner.close();
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int t = scan.nextInt();
+        Node root = null;
+        while(t-- > 0) {
+            int data = scan.nextInt();
+            root = insert(root, data);
+        }
+        scan.close();
+        preOrder(root);
     }
 }
