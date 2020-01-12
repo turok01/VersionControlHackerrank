@@ -1,70 +1,57 @@
-package com.Igor;
-
-import java.util.*;
+package com.Igor.;
 import java.io.*;
+import java.util.*;
+import java.util.stream.IntStream;
 
-class Node {
-    Node left;
-    Node right;
-    int data;
-
-    Node(int data) {
-        this.data = data;
-        left = null;
-        right = null;
+interface PerformOperation {
+    boolean check(int a);
+}
+class MyMath {
+    public static boolean checker(PerformOperation p, int num) {
+        return p.check(num);
     }
+    static PerformOperation isOdd(){
+        return (int n) -> n%2==0;
+    }
+    static PerformOperation isPrime(){
+        return (int n)-> IntStream.range(2,(int)Math.sqrt(n+1)).noneMatch(i->n%i==0);
+    }
+    
 }
 
-class Solution {
 
-    public static void preOrder( Node root ) {
+    public  class Solution {
 
-        if( root == null)
-            return;
+        public static void main(String[] args) throws IOException {
+            //PerformOperation isOdd;
+            //isOdd = a->a%2==0;
 
-        System.out.print(root.data + " ");
-        preOrder(root.left);
-        preOrder(root.right);
+            MyMath ob = new MyMath();
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            int T = Integer.parseInt(br.readLine());
+            PerformOperation op;
+            boolean ret = false;
+            String ans = null;
+            while (T--> 0) {
+                String s = br.readLine().trim();
+                StringTokenizer st = new StringTokenizer(s);
+                int ch = Integer.parseInt(st.nextToken());
+                int num = Integer.parseInt(st.nextToken());
+                if (ch == 1) {
+                    op = ob.isOdd();
+                    ret = ob.checker(op, num);
+                    ans = (ret) ? "ODD" : "EVEN";
+                } else if (ch == 2) {
+                    op = ob.isPrime();
+                    ret = ob.checker(op, num);
+                    ans = (ret) ? "PRIME" : "COMPOSITE";
+                } else if (ch == 3) {
+                    op = ob.isPalindrome();
+                    ret = ob.checker(op, num);
+                    ans = (ret) ? "PALINDROME" : "NOT PALINDROME";
 
-    }
-
- /* Node is defined as :
- class Node
-    int data;
-    Node left;
-    Node right;
-
-    */
-
-    public static Node insert(Node root,int data) {
-        if(root==null){
-            Node node = new Node(data);
-            root = node;
-        }
-        if (root.data > data ){
-                if(root.left!=null)
-                    root.left=insert(root.left,data);
-                else
-                    root.left= new Node(data);
+                }
+                System.out.println(ans);
             }
-        if(root.data < data){
-            if (root.right!=null)
-                root.right=insert(root.right,data);
-            else
-                root.right=new Node(data);
         }
-        return root;
     }
-
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int t = scan.nextInt();
-        Node root = null;
-        while(t-- > 0) {
-            int data = scan.nextInt();
-            root = insert(root, data);
-        }
-        scan.close();
-        preOrder(root);
-    }
-}
