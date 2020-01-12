@@ -41,20 +41,17 @@ class Solution {
             Node node = new Node(data);
             root = node;
         }
-
-        if (root.data < data ){
-            if(root.left!=null)
-                root.left=insert(root.left,data);
-            //else
-              //  return new Node(data);
-        }
-        if(root.data>data){
+        if (root.data > data ){
+                if(root.left!=null)
+                    root.left=insert(root.left,data);
+                else
+                    root.left= new Node(data);
+            }
+        if(root.data < data){
             if (root.right!=null)
                 root.right=insert(root.right,data);
-            //else{
-            //    root.right=
-            //   return new Node(data);
-            //}
+            else
+                root.right=new Node(data);
         }
         return root;
     }
