@@ -13,12 +13,43 @@ public class UserTest {
     private User user1;
     private User user2;
     private User user3;
+
+    private User userNotAdd;
+    private User userNotAdd1;
+
     @Before
     public void setUp() throws Exception {
         //create test data
         user1 = new User("Igor", 35, User.Sex.MALE);
         user2 = new User("Kristina", 34, User.Sex.FEMALE);
         user3 = new User("Serg", 30, User.Sex.MALE);
+
+        userNotAdd = new User("",0,null);
+        userNotAdd1 = new User(null,0,null);
+    }
+    @Test
+    public void newUser_EMTY_NAME(){
+        for(User user : User.getAllUsers()){
+            if (user.getName() != null && user.getName().isEmpty()){
+                Assert.fail("Попытка создания пользователя с пустым именем");
+            }
+        }
+    }
+    @Test
+    public void newUser_AGE_ZERO(){
+        for(User user : User.getAllUsers()){
+            if(user.getAge()<=0){
+                Assert.fail("Поытка создания пользователя с недопустимым возрастом");
+            }
+        }
+    }
+    @Test
+    public void newUser_SEX_NO_NULL(){
+        for(User user : User.getAllUsers()){
+            if(user.getSex()==null){
+                Assert.fail("Попытка создания пользователя с указанием пола = null");
+            }
+        }
     }
     @Test
     public void getAllUsers() {

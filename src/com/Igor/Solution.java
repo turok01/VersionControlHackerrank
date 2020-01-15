@@ -27,13 +27,15 @@ class User{
         return age;
     }
     public User(String name, int age, Sex sex){
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-        if(!hasUser()){
-            countId++;
-            this.id = countId;
-            allUsers.put(id, this);
+        if(name!=null && !name.isEmpty() && age > 0 && sex!=null) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            if (!hasUser()) {
+                countId++;
+                this.id = countId;
+                allUsers.put(id, this);
+            }
         }
     }
     public static List<User> getAllUsers(){
