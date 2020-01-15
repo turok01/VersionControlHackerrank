@@ -1,6 +1,7 @@
 package com.Igor;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,14 +10,18 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class UserTest {
-
+    private User user1;
+    private User user2;
+    private User user3;
+    @Before
+    public void setUp() throws Exception {
+        //create test data
+        user1 = new User("Igor", 35, User.Sex.MALE);
+        user2 = new User("Kristina", 34, User.Sex.FEMALE);
+        user3 = new User("Serg", 30, User.Sex.MALE);
+    }
     @Test
     public void getAllUsers() {
-        //create test data
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
-
         //create list "expected" and full him data of our method
         List<User> expected = User.getAllUsers();
 
@@ -37,11 +42,7 @@ public class UserTest {
         Assert.assertNotNull(expected);
     }
     @Test
-    public void testGetAllUsers_MALE() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
-
+    public void GetAllUsers_MALE() {
         List<User> expected = User.getAllUsers(User.Sex.MALE);
         List<User> actual = new ArrayList<>();
         actual.add(user1);
@@ -50,11 +51,7 @@ public class UserTest {
         Assert.assertEquals(expected,actual);
     }
     @Test
-    public void testGetAllUsers_FEMALE() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
-
+    public void GetAllUsers_FEMALE() {
         List<User> expected = User.getAllUsers(User.Sex.FEMALE);
         List<User> actual = new ArrayList<>();
         actual.add(user2);
@@ -73,16 +70,10 @@ public class UserTest {
         List<User> expected = User.getAllUsers(User.Sex.FEMALE);
         Assert.assertNotNull(expected);
     }
-    @Test
-    public void testGetAllUsers() {
-    }
+
 
     @Test
     public void getHowManyUsers() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
-
         int expected = User.getHowManyUsers();
         int actual = 3;
 
@@ -91,9 +82,6 @@ public class UserTest {
 
     @Test
     public void testGetHowManyUsers_MALE() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
         int expected = User.getHowManyUsers(User.Sex.MALE);
         int actual = 2;
 
@@ -101,9 +89,6 @@ public class UserTest {
     }
     @Test
     public void testGetHowManyUsers_FEMALE() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
         int expected = User.getHowManyUsers(User.Sex.FEMALE);
         int actual = 1;
 
@@ -111,9 +96,6 @@ public class UserTest {
     }
     @Test
     public void getAllAgeUsers() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
         int expected = User.getAllAgeUsers();
         int actual= 35 + 34 + 30;
 
@@ -121,9 +103,6 @@ public class UserTest {
     }
     @Test
     public void getAllAgeUsers_MALE() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
         int expected = User.getAllAgeUsers(User.Sex.MALE);
         int actual= 35 + 30;
 
@@ -131,23 +110,15 @@ public class UserTest {
     }
     @Test
     public void getAllAgeUsers_FEMALE() {
-        User user1 = new User("Igor",35, User.Sex.MALE);
-        User user2 = new User("Kristina",34, User.Sex.FEMALE);
-        User user3 = new User("Serg", 30,User.Sex.MALE);
         int expected = User.getAllAgeUsers(User.Sex.FEMALE);
         int actual= 34;
 
         Assert.assertEquals(expected,actual);
-    }
-    @Test
-    public void testGetAllAgeUsers() {
     }
 
     @Test
     public void getAverageAgeOfAllUsers() {
     }
 
-    @Test
-    public void testGetAverageAgeOfAllUsers() {
-    }
+
 }
